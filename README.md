@@ -1,4 +1,6 @@
-# vault_example
+# Методичка по работе с HashiCorp Vault
+
+*Замечание*: Все инструкции приведены для Windows.
 
 ## Полные инструкции:
 - set-up: https://developer.hashicorp.com/vault/tutorials/get-started/setup
@@ -147,13 +149,21 @@ curl.exe -X POST -H "X-Vault-Token: root" -H "Content-Type: application/json" -d
 }
 ```
 
-Заметим, что если послать не json, то будет ошибка:
-```
-curl.exe -X POST -H "X-Vault-Token: root" -H "Content-Type: text/plain" -d 'my_secret_token' http://127.0.0.1:8200/v1/secret/data/my_secret_token_id
+#### Ошибки
 
-```
-Вывод:
-```
-{"errors":["error parsing JSON"]}
-```
-
+1. Если послать не json, то будет ошибка:
+   ```
+   curl.exe -X POST -H "X-Vault-Token: root" -H "Content-Type: text/plain" -d 'my_secret_token' http://127.0.0.1:8200/v1/secret/data/my_secret_token_id
+   ```
+   Вывод:
+   ```
+   {"errors":["error parsing JSON"]}
+   ```
+2. Если послать json без поля data в корне, то будет ошибка:
+   ```
+   curl.exe -X POST -H "X-Vault-Token: root" -H "Content-Type: application/json" -d '{\"token_id\":\"my_secret_token\"}' http://127.0.0.1:8200/v1/secret/data/secret3
+   ```
+   Вывод:
+   ```
+   {"errors":["no data provided"]}
+   ```
