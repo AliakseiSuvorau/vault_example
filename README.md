@@ -1,6 +1,8 @@
 # Методичка по работе с HashiCorp Vault
 
-*Замечание*: Все инструкции приведены для Windows.
+*Замечание 1*: Все инструкции приведены для Windows.
+
+*Замечание 2*: Все инструкции приведены для KVv2.
 
 ## Полные инструкции:
 - set-up: https://developer.hashicorp.com/vault/tutorials/get-started/setup
@@ -151,7 +153,7 @@ curl.exe -X POST -H "X-Vault-Token: root" -H "Content-Type: application/json" -d
 
 #### Ошибки
 
-1. Если послать не json, то будет ошибка:
+1. Если послать не json/некорректный json, то будет ошибка:
    ```
    curl.exe -X POST -H "X-Vault-Token: root" -H "Content-Type: text/plain" -d 'my_secret_token' http://127.0.0.1:8200/v1/secret/data/my_secret_token_id
    ```
