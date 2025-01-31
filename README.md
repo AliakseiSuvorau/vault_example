@@ -74,10 +74,11 @@
 
 ## Vault HTTP API
 
+### GET
 Пошлем запрос на получение секрета `secret1`:
 
 ```
-    curl.exe http://127.0.0.1:8200/v1/secret/data/secret1 -H "X-Vault-Token: root"
+    curl.exe -X GET -H "X-Vault-Token: root" http://127.0.0.1:8200/v1/secret/data/secret1
 ```
 Вывод:
 ```
@@ -109,3 +110,50 @@
    "mount_type": "kv"
 }
 ```
+
+### POST
+
+Положим новый токен "my_secret_token" в секрет `secret3` по ключу `token_id`. **Обязательно**: посылаемый json на корневом уровне должен иметь поле `data`:
+```json
+{
+  "data": {
+    "token_id": "my_secret_token"
+  }
+}
+```
+Итак, выполним запрос:
+```
+curl.exe -X POST -H "X-Vault-Token: root" -H "Content-Type: application/json" -d '{\"data\":{\"token_id\":\"my_secret_token\"}}' http://127.0.0.1:8200/v1/secret/data/secret3
+```
+Вывод:
+```
+{
+   "request_id": "7ecff528-2e80-8a3b-a7a5-fee77559df57",
+   "lease_id": "",
+   "renewable": false,
+   "lease_duration": 0,
+   "data":
+   {
+      "created_time": "2025-01-31T12:34:19.8070105Z",
+      "custom_metadata": null,
+      "deletion_time": "",
+      "destroyed": false,
+      "version": 1
+   },
+   "wrap_info": null,
+   "warnings": null,
+   "auth": null,
+   "mount_type": "kv"
+}
+```
+
+Заметим, что если послать не json, то будет ошибка:
+```
+curl.exe -X POST -H "X-Vault-Token: root" -H "Content-Type: text/plain" -d 'my_secret_token' http://127.0.0.1:8200/v1/secret/data/my_secret_token_id
+
+```
+Вывод:
+```
+{"errors":["error parsing JSON"]}
+```
+
