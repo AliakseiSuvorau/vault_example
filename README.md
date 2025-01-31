@@ -7,7 +7,7 @@
 - ui: https://developer.hashicorp.com/vault/tutorials/get-started/learn-ui
 - http-api: https://developer.hashicorp.com/vault/tutorials/get-started/learn-http-api
 
-## Vault set-up:
+## Vault set-up
 1. Установка vault: https://developer.hashicorp.com/vault/downloads#windows
 2. Запуск vault  (в той директории, в которой находится vault.exe, либо добавить его в PATH под имя vault и использовать его отовсюду)
    ```
